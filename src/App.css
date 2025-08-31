@@ -19,9 +19,9 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   width: 90%;
   max-width: 400px;
-  display: flex;               
-  flex-direction: column;     
-  align-items: center;      
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -37,15 +37,15 @@ h1 {
   background-color: rgba(255, 255, 255, 0.15);
   padding: 10px 15px;
   border-radius: 12px;
-  display: inline-block;
 }
 
 .board {
   display: grid;
   grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(3, 100px);  
+  grid-template-rows: repeat(3, 100px);
   gap: 10px;
   margin-bottom: 20px;
+  justify-content: center;
 }
 
 .square {
@@ -58,23 +58,34 @@ h1 {
   font-weight: bold;
   color: white;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.18s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.square:hover {
+.square:hover:enabled {
   background: rgba(255, 255, 255, 0.25);
   transform: scale(1.05);
 }
 
-.square:focus{
+.square:focus {
   outline: none;
 }
 
-.reset-button {
-  background-color: #ff4b5c;
+.square:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.reset-button,
+.ai-button {
   border: none;
   padding: 12px 24px;
   font-size: 16px;
@@ -85,8 +96,28 @@ h1 {
   transition: background-color 0.3s ease;
 }
 
+.reset-button {
+  background-color: #ff4b5c;
+}
+
 .reset-button:hover {
   background-color: #ff6b7c;
+}
+
+.reset-button:focus {
+  outline: none;
+}
+
+.ai-button {
+  background-color: #4CAF50;
+}
+
+.ai-button:hover {
+  background-color: #45a049;
+}
+
+.ai-button:focus {
+  outline: none;
 }
 
 /* Responsive Design */
