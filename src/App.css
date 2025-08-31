@@ -1,6 +1,112 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  color: white;
+}
+
+.game-container {
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  width: 90%;
+  max-width: 400px;
+  display: flex;               
+  flex-direction: column;     
+  align-items: center;      
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 40px;
+  font-weight: bold;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.status {
+  font-size: 20px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 10px 15px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);  
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.square:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.square:focus{
+  outline: none;
+}
+
+.reset-button {
+  background-color: #ff4b5c;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #ff6b7c;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .board {
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px);
+  }
+
+  .square {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .game-container {
+    padding: 20px;
+  }
 }
