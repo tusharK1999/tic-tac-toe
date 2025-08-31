@@ -1,143 +1,208 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  color: white;
+/* ---------- CSS Variables (Theme Colors) ---------- */
+:root {
+  --bg-1: #0b0f14;        /* Dark gradient background start */
+  --bg-2: #0f1119;        /* Dark gradient background end */
+  --tile: #252734;        /* Board tile background */
+  --tile-hover: #2d2f3e;  /* Tile hover effect */
+  --pill: #1a1c27;        /* Status pill background */
+  --x-color: #34d399;     /* "X" color (green) */
+  --o-color: #6366f1;     /* "O" color (blue) */
+  --accent: #2ecc71;      /* Accent color for green button */
+  --danger: #ef4444;      /* Red color for restart button */
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 24px;
+}
+
+/* ---------- App Container ---------- */
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Game Container ---------- */
 .game-container {
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  width: 90%;
-  max-width: 400px;
+  width: 100%;
+  max-width: 780px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-h1 {
-  margin-bottom: 20px;
-  font-size: 40px;
-  font-weight: bold;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+/* ---------- Title ---------- */
+.game-title {
+  font-size: 36px;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: #ffffff;
 }
 
-.status {
-  font-size: 20px;
+/* ---------- Status Pill ---------- */
+.status-pill {
+  background: var(--pill);
+  color: #d1d5db;
+  padding: 8px 14px;
+  border-radius: 999px; /* fully rounded pill */
   margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.15);
-  padding: 10px 15px;
-  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
+/* ---------- Game Board ---------- */
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(3, 100px);
-  gap: 10px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(3, 150px);
+  grid-template-rows: repeat(3, 150px);
+  gap: 20px;
   justify-content: center;
+  margin-bottom: 28px;
 }
 
+/* ---------- Board Square ---------- */
 .square {
-  width: 100px;
-  height: 100px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  font-size: 32px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-  transition: all 0.18s ease;
+  width: 150px;
+  height: 150px;
+  background: var(--tile);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.04);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 64px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  user-select: none;
 }
 
-.square:hover:enabled {
-  background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.05);
+/* Hover effect (when not disabled) */
+.square:not(:disabled):hover {
+  transform: translateY(-6px) scale(1.02);
+  background: var(--tile-hover);
+  box-shadow: 0 12px 30px rgba(2,6,23,0.45);
 }
 
-.square:focus {
-  outline: none;
-}
-
+/* Disabled square */
 .square:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.9;
 }
 
-.buttons {
+/* "X" mark color */
+.square.x {
+  color: var(--x-color);
+  text-shadow: 0 3px 0 rgba(0,0,0,0.25);
+}
+
+/* "O" mark color */
+.square.o {
+  color: var(--o-color);
+  text-shadow: 0 3px 0 rgba(0,0,0,0.25);
+}
+
+/* ---------- Controls (Buttons) ---------- */
+.controls {
   display: flex;
-  gap: 10px;
+  gap: 16px;
+  align-items: center;
   justify-content: center;
+  margin-bottom: 12px;
 }
 
-.reset-button,
-.ai-button {
-  border: none;
-  padding: 12px 24px;
+/* Base button */
+.btn {
+  padding: 12px 26px;
+  border-radius: 14px;
+  font-weight: 700;
   font-size: 16px;
-  font-weight: bold;
-  color: white;
-  border-radius: 10px;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+  box-shadow: 0 8px 18px rgba(2,6,23,0.45);
 }
 
-.reset-button {
-  background-color: #ff4b5c;
+/* Restart (red) button */
+.btn-red {
+  background: var(--danger);
+  color: #fff;
 }
 
-.reset-button:hover {
-  background-color: #ff6b7c;
+/* AI/Friend (green) button */
+.btn-green {
+  background: var(--accent);
+  color: #04210f;
 }
 
-.reset-button:focus {
-  outline: none;
+/* Button hover effect */
+.btn:hover {
+  transform: translateY(-4px);
 }
 
-.ai-button {
-  background-color: #4CAF50;
-}
+/* ---------- Responsive Design ---------- */
 
-.ai-button:hover {
-  background-color: #45a049;
-}
-
-.ai-button:focus {
-  outline: none;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
+/* Medium screens (tablets) */
+@media (max-width: 920px) {
   .board {
-    grid-template-columns: repeat(3, 80px);
-    grid-template-rows: repeat(3, 80px);
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 16px;
   }
 
   .square {
-    width: 80px;
-    height: 80px;
-    font-size: 24px;
+    width: 120px;
+    height: 120px;
+    font-size: 48px;
+    border-radius: 14px;
+  }
+}
+
+/* Small screens (mobiles) */
+@media (max-width: 480px) {
+  .board {
+    grid-template-columns: repeat(3, 84px);
+    grid-template-rows: repeat(3, 84px);
+    gap: 12px;
   }
 
-  h1 {
-    font-size: 32px;
+  .square {
+    width: 84px;
+    height: 84px;
+    font-size: 28px;
+    border-radius: 12px;
   }
 
-  .game-container {
-    padding: 20px;
+  .game-title {
+    font-size: 22px;
+  }
+  
+  .status-pill {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 10px;
   }
 }

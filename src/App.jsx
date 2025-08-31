@@ -31,7 +31,7 @@ function App() {
   const status = winner
     ? `Winner: ${winner}`
     : board.every(square => square !== null)
-      ? "It's a Draw!"
+    ? "It's a Draw!"
       : `Next player: ${xIsNext ? "X" : "O"}`
 
 
@@ -102,33 +102,41 @@ function App() {
 
 
   return (
-    <div className="game-container">
+    <div className="app">
+      <div className="game-container">
       {/* Game Title */}
-      <h1>Tic Tac Toe</h1>
+        <h1 className="game-title">Tic Tac Toe</h1>
 
       {/* Status message: winner or next player */}
-      <div className="status">{status}</div>
+        <div className="status-pill">{status}</div>
 
       {/* Game board: 9 squares */}
-      <div className="board">
-        {board.map((value, index) => (
-          <button key={index} className="square" onClick={() => handleClick(index)}>
-            {value}
-          </button>
-        ))}
-      </div>
+        <div className="board">
+          {board.map((value, index) => (
+            <button
+              key={index}
+              className={`square ${value === "X" ? "x" : value === "O" ? "o" : ""}`}
+              onClick={() => handleClick(index)}
+              disabled={!!board[index] || !!winner}
+            >
+              {value}
+            </button>
+          ))}
+        </div>
 
-      <div className="buttons">
-        <button className="reset-button" onClick={resetGame}>Restart Game</button>
-        <button
-          className="ai-button"
-          onClick={() => {
-            setAiMode(!aiMode)
-            resetGame()
-          }}
-        >
-          {aiMode ? "Play vs Friend" : "Play vs AI"}
-        </button>
+        <div className="controls">
+          <button className="btn btn-red" onClick={resetGame}>Restart Game</button>
+
+          <button
+            className="btn btn-green"
+            onClick={() => {
+              setAiMode(!aiMode)
+              resetGame()
+            }}
+          >
+            {aiMode ? "Play vs Friend" : "Play vs AI"}
+          </button>
+        </div>
       </div>
     </div>
   )
